@@ -1,9 +1,8 @@
-from load_data import create_spark_session, load_data
-from transform import clean_data, aggregate_data
+from spark_session import create_spark_session
+from load_data import load_csv
+from transform import clean_data, aggregate
 
 spark = create_spark_session()
-df = load_data(spark, "data/sample_data.csv")
-df_clean = clean_data(df)
-result = aggregate_data(df_clean)
-
-result.show()
+df = load_csv(spark, "data/sample_data.csv")
+df = clean_data(df)
+aggregate(df, df.columns[0]).show()
